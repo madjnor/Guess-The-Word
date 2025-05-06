@@ -1,0 +1,35 @@
+import random
+
+words = ["hello", "ctecrules", "family", "senior", "graduation", "bowie"]
+
+secret_word =random.choice(words)
+arr = ['-' for _ in secret_word]
+
+guesses_left = 10
+
+def get_guess():
+    while True:
+        print('\n' + ''.join(arr))
+        print(str(guesses_left) + " incorrect guesses left!!!")
+        guess = input("Guess: ")
+        if len(guess) != 1:
+            print ("Your guess can only be ONE character!!")
+        elif guess not in "abcdefghijklmnopqrstuvwxyz":
+            print("Your guess MUST be lowercase!!!")
+        else:
+            return guess
+while guesses_left > 0 and '-' in arr:
+    guess = get_guess()
+    if guess in secret_word:
+        print("That letter is in the word!!!")
+        for i in range(len(secret_word)):
+            if secret_word[i] == guess:
+                arr[i] = guess
+    else:
+        print("That letter is NOT in the word!!!")
+        guesses_left -= 1
+
+if '-' not in arr:
+    print("You've Guessed The Secret Word! the word was: " + secret_word)
+else:
+    print("Sorry, you didn't guess the secret word. The word was: " + secret_word)
